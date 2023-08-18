@@ -4,6 +4,8 @@ const Register=require("../models/register")
 const jwt = require('jsonwebtoken');
 // const jwt = require('jsonwebtoken');
 const jwtSecret = '1234';
+const nodemailer = require("nodemailer");
+
 
 
 
@@ -65,8 +67,8 @@ console.log(newData1,"idididids")
 const registerDatapost=async(req,res)=>{
     console.log(req.body,"registerdata")
   try{await Register.create(req.body.formData)
-    const email=req.body.formData.email
-    console.log(req.body.formData.email,"jjjjjjjjjjjj")
+    const email=req.body?.formData?.email
+    console.log(req.body?.formData?.email,"jjjjjjjjjjjj")
     // console.log(email1,"kkkkkk")
     const resisterId=  await Register.findOne({email:email})
     console.log(resisterId,"resisterId")
@@ -81,6 +83,48 @@ const registerDatapost=async(req,res)=>{
     catch(err){
           console.log(err)
     }
+
+//send email through nodemailer
+
+"use strict";
+
+const transporter = nodemailer.createTransport({
+  host: "smtp.ethereal.email",
+  port: 587,
+  // secure: true,
+  // service: 'gmail',
+  auth: {
+    // TODO: replace `user` and `pass` values from <https://forwardemail.net>
+    user: 'colt.hane90@ethereal.email',
+    pass: 'ePe7NPH1YjJSYfcQ6F'
+  }
+});
+
+// async..await is not allowed in global scope, must use a wrapper
+async function main() {
+  // send mail with defined transport object
+  const info = await transporter.sendMail({
+    from: '"Fred Foo 👻" <kush.kalsangrah@gmail.com>', // sender address
+    to: "love.kalsangrah@gmail.com", // list of receivers
+    subject: "Hello ✔", // Subject line
+    text: "Registration successful", // plain text body
+    // html: "<b>Hello world?</b>", // html body
+  });
+
+  console.log("Message sent: %s", info.messageId);
+  // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
+
+  //
+  // NOTE: You can go to https://forwardemail.net/my-account/emails to see your email delivery status and preview
+  //       Or you can use the "preview-email" npm package to preview emails locally in browsers and iOS Simulator
+  //       <https://github.com/forwardemail/preview-email>
+  //
+}
+
+main().catch(console.error);
+
+
+
 }
 
 const loginDatapost= async(req,res)=>{
