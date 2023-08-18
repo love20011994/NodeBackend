@@ -81,6 +81,10 @@ const registerDatapost=async(req,res)=>{
     catch(err){
           console.log(err)
     }
+
+
+
+
 }
 
 const loginDatapost= async(req,res)=>{
