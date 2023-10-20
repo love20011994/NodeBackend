@@ -30,10 +30,11 @@ try{
        console.log( `${PORT } is runnig `)
     })
 }
-catch(error){
+catch(error){ 
     console.log(error)
 }
 
 }
+
 
 statr()
