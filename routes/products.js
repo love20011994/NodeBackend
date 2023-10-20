@@ -12,6 +12,8 @@ const {
     registerDatapost,
     loginDatapost,
     logoutDatapost,
+    checkout,
+    paymentVerification,
     updateapi}=require("../controllers/products")
 
 router.route('/getData').get(getAllProducts)
@@ -29,6 +31,8 @@ router.route('/editapi').post(updateapi)
 router.route('/register/postapi').post(registerDatapost)
 router.route('/login/postapi').post(loginDatapost)
 router.route('/logout/postapi').post(logoutDatapost)
+router.route("/checkout").post(checkout)
+router.route('/paymentVerification').post(paymentVerification)
 
 
 
